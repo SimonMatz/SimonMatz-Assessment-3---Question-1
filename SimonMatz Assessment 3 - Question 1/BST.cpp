@@ -102,3 +102,36 @@ void BST::postOrderTraversal(Node* current)
 		cout << current->number << " " << endl;
 	}
 }
+
+void BST::show(Node* p)
+{
+	if (root == NULL)  return;
+
+	queue<LevelNode> q;
+
+	q.push(LevelNode(root, 0));
+
+	int previousOutputLevel = -1;
+
+	while (q.empty() == false)
+	{
+
+		LevelNode node = q.front();
+		if (node.level != previousOutputLevel)
+		{
+			cout << endl;
+			cout << node.level << ": ";
+			previousOutputLevel = node.level;
+		}
+		cout << node.number1->number << " ";
+		q.pop();
+
+		//Enqueue left child
+		if (node.number1->leftChild != NULL)
+			q.push(LevelNode(node.number1->leftChild, node.level + 1));
+
+		//Enqueue right child
+		if (node.number1->rightChild != NULL)
+			q.push(LevelNode(node.number1->rightChild, node.level + 1));
+	}
+}
