@@ -1,4 +1,5 @@
 #include "BST.h"
+#include <fstream>
 
 void BST::insert(Node* newNumber)
 {
@@ -105,6 +106,9 @@ void BST::postOrderTraversal(Node* current)
 
 void BST::show(Node* p)
 {
+	ofstream  writeFile;
+	writeFile.open("output-q1-a2.txt");
+
 	if (root == NULL)  return;
 
 	queue<LevelNode> q;
@@ -121,9 +125,14 @@ void BST::show(Node* p)
 		{
 			cout << endl;
 			cout << node.level << ": ";
+			writeFile << endl;
+			writeFile << node.level << ": ";
+
+
 			previousOutputLevel = node.level;
 		}
 		cout << node.number1->number << " ";
+		writeFile << node.number1->number << " ";
 		q.pop();
 
 		//Enqueue left child
@@ -134,4 +143,5 @@ void BST::show(Node* p)
 		if (node.number1->rightChild != NULL)
 			q.push(LevelNode(node.number1->rightChild, node.level + 1));
 	}
+	writeFile.close();
 }

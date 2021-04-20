@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "BST.h"
 #include "AVL.h"
 
@@ -7,21 +8,42 @@ using namespace std;
 
 void main()
 {
-	AVL avl1;
-	avl1.displayRotations = true;
-	avl1.insert(new Node(23));
-	avl1.insert(new Node(12));
-	avl1.insert(new Node(5));
-	avl1.insert(new Node(8));
-	avl1.insert(new Node(10));
-	avl1.insert(new Node(21));
-	avl1.insert(new Node(11));
-	avl1.insert(new Node(17));
+	//reading from input file
+	ifstream readFile;
+	readFile.open("input-q1-a2.txt");
 
-	cout << "AVL root is : " << avl1.root->number << " " << endl;
+	int amountOfNumbers;
+
+	readFile >> amountOfNumbers;
+
+	//using pointers to create dynamic size array
+	int* numbersToInsert = new int[amountOfNumbers];
+	//variable for looping through array
+	int count1 = 0;
+
+	//looping through line 4 until end of file and storing numbers in array
+	while (!readFile.eof())
+	{
+		readFile >> numbersToInsert[count1];
+		count1++;
+	}
+
+	readFile.close();
+
+	//creating empty AVL tree
+	AVL avl1;
+
+	for (int i = 0; i < amountOfNumbers; i++)
+	{
+		avl1.insert(new Node(numbersToInsert[i]));	
+	}
 	
 	avl1.show(avl1.root);
 
+
 	cout << "\n\n\n";
+
+	//deleting the temp array to avoid memory leak
+	delete[] numbersToInsert;
 	
 }

@@ -5,11 +5,8 @@ class AVL : public BST
 {
 public:
 
-	bool displayRotations = true;
-
 	int height(Node* node);
 	int difference(Node* node);
-
 
 	Node* RRrotation(Node* parent);
 	
@@ -19,7 +16,6 @@ public:
 	
 	Node* RLrotation(Node* parent);
 
-	
 	Node* balance(Node* parent);
 
 	Node* insertAVL(Node* parent, Node* newNumber);
