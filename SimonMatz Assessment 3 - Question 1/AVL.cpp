@@ -1,3 +1,6 @@
+//Simon Matz A00018077 Assessment 3 - Question 1
+//Github respository link: https://github.com/SimonMatz/SimonMatz-Assessment-3---Question-1
+
 #include "AVL.h"
 
 int AVL::height(Node* node)
@@ -9,7 +12,6 @@ int AVL::height(Node* node)
         int leftH = height(node->leftChild);
         int rightH = height(node->rightChild);
 
-        
         int maxH = max(leftH, rightH);
         h = maxH + 1;
     }
@@ -18,7 +20,7 @@ int AVL::height(Node* node)
 
 int AVL::difference(Node* node)
 {
-   
+    //returns 0 when tree is empty
     if (node == NULL)
         return 0;
 
@@ -65,45 +67,47 @@ Node* AVL::RLrotation(Node* parent)
 
 Node* AVL::balance(Node* parent)
 {
-    
     int balanceFactor = difference(parent);
 
-    
     if (balanceFactor > 1)
     {
-        
         if (difference(parent->leftChild) > 0)
-        {            
+        {    
+            //left child unbalanced
             parent = LLrotation(parent);
         }
         else
         {
+            //right child unbalanced
             parent = LRrotation(parent);
         }
     }
+    //right branch is the heavy one, checking which child
     else if (balanceFactor < -1)
     {
         if (difference(parent->rightChild) > 0)
-        {           
+        {   
+            //left child is heavy      
             parent = RLrotation(parent);
         }
         else
         {
+            //right child is heavy  
             parent = RRrotation(parent);
         }
     }
-
     return parent;
 }
 
 Node* AVL::insertAVL(Node* parent, Node* newNumber)
 {
+    // becomes the parent if sub tree is empty
     if (parent == NULL)
     {
         parent = newNumber;
         return parent;
     }
-
+    // parent is not null - no empty space for new number - go down left or right
     if (newNumber->number < parent->number)
     {
         parent->leftChild = insertAVL(parent->leftChild, newNumber);

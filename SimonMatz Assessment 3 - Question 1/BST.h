@@ -2,6 +2,7 @@
 #include <queue>
 #include "Node.h"
 
+//Class for breadth first traversal
 class LevelNode
 {
 	public:
@@ -15,18 +16,14 @@ class LevelNode
 		}
 };
 
-
 class BST
 {
 	public:
+
 		Node* root = NULL;
 		virtual void insert(Node* newNumber);
-		Node* search(int number, bool showSearchpath = false);
 
-		void inOrderTraversal(Node* current);
-		void preOrderTraversal(Node* current);
-		void postOrderTraversal(Node* current);
-
+		//outputs tree in breadth-first traversal
 		void show(Node* p);
 };
 

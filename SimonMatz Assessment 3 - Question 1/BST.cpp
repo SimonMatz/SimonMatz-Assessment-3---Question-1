@@ -1,15 +1,18 @@
+//Simon Matz A00018077 Assessment 3 - Question 1
+//Github respository link: https://github.com/SimonMatz/SimonMatz-Assessment-3---Question-1
+
 #include "BST.h"
 #include <fstream>
 
 void BST::insert(Node* newNumber)
 {
-
+	// if the tree is empty newNumber will become root
 	if (root == NULL)
 	{
 		root = newNumber;
 		return;
 	}
-
+	// to navigate through tree and find correct spot to insert numbers
 	Node* current = root;
 	Node* parent = NULL;
 
@@ -17,16 +20,19 @@ void BST::insert(Node* newNumber)
 	{
 		parent = current;
 
+		//going left if new number is less than current number
 		if (newNumber->number < current->number)
 		{
 			current = current->leftChild;
 
+			//finding empty space to add new number
 			if (current == NULL)
 			{
 				parent->leftChild = newNumber;
 				return;
 			}
 		}
+		//going right down the tree
 		else
 		{
 			current = current->rightChild;
@@ -38,70 +44,6 @@ void BST::insert(Node* newNumber)
 			}
 		}
 	}
-
-}
-
-Node* BST::search(int number, bool showSearchPath)
-{
-	if (root == NULL)
-	{
-		return NULL;
-	}
-	
-	Node* current = root;
-
-	while (current->number != number)
-	{
-
-		if (showSearchPath)
-			cout << current->number << endl;
-
-		if (number < current->number)
-		{
-			current = current->leftChild;
-		}
-		else
-		{
-			current = current->rightChild;
-		}
-
-		if (current == NULL)
-		{
-			return NULL;
-		}
-	}
-
-	return current;
-}
-
-void BST::inOrderTraversal(Node* current)
-{
-	if (current != NULL)
-	{
-		inOrderTraversal(current->leftChild);
-		cout << current->number << " " << endl;
-		inOrderTraversal(current->rightChild);
-	}
-}
-
-void BST::preOrderTraversal(Node* current)
-{
-	if (current != NULL)
-	{
-		cout << current->number << " " << endl;
-		preOrderTraversal(current->leftChild);
-		preOrderTraversal(current->rightChild);
-	}
-}
-
-void BST::postOrderTraversal(Node* current)
-{
-	if (current != NULL)
-	{
-		postOrderTraversal(current->leftChild);
-		postOrderTraversal(current->rightChild);
-		cout << current->number << " " << endl;
-	}
 }
 
 void BST::show(Node* p)
@@ -111,27 +53,24 @@ void BST::show(Node* p)
 
 	if (root == NULL)  return;
 
+	// Creating empty queue 
 	queue<LevelNode> q;
 
+	//Adding root to queue and setting height
 	q.push(LevelNode(root, 0));
 
 	int previousOutputLevel = -1;
 
 	while (q.empty() == false)
 	{
-
 		LevelNode node = q.front();
 		if (node.level != previousOutputLevel)
 		{
-			cout << endl;
-			cout << node.level << ": ";
 			writeFile << endl;
 			writeFile << node.level << ": ";
 
-
 			previousOutputLevel = node.level;
 		}
-		cout << node.number1->number << " ";
 		writeFile << node.number1->number << " ";
 		q.pop();
 
